@@ -1,0 +1,104 @@
+classdef RationalNumber < handle
+    properties
+        numerator
+        denominator
+    end
+    
+    methods
+        function obj = RationalNumber(numerator, denominator)
+            if nargin < 2
+                denominator = 1;
+            end
+            obj.numerator = sym(numerator);
+            obj.denominator = sym(denominator);
+            obj.check()
+        end
+        function check(obj)
+            hcf = gcd(obj.numerator,obj.denominator);
+            obj.numerator = obj.numerator/hcf;
+            obj.denominator = obj.denominator/hcf;
+            if obj.numerator < 0 && obj.denominator < 0
+                obj.numerator = abs(obj.numerator);
+                obj.denominator = abs(obj.denominator);
+            elseif obj.numerator <0 || obj.denominator <0
+                obj.numerator = -1*abs(obj.numerator);
+                obj.denominator = abs(obj.denominator);
+            end
+        end
+        function result = addr(obj1, obj2)
+            if isa(obj2, 'RationalNumber')
+                common_denominator = obj1.denominator * obj2.denominator;
+                new_numerator = (obj1.numerator * obj2.denominator) + (obj2.numerator * obj1.denominator);
+                result = RationalNumber(new_numerator, common_denominator);
+                result.check()
+            else
+                error('Unsupported operand type(s) for +');
+            end
+        end
+        
+        function result = subr(obj1, obj2)
+            if isa(obj2, 'RationalNumber')
+                common_denominator = obj1.denominator * obj2.denominator;
+                new_numerator = (obj1.numerator * obj2.denominator) - (obj2.numerator * obj1.denominator);
+                result = RationalNumber(new_numerator, common_denominator);
+                result.check()
+            else
+                error('Unsupported operand type(s) for -');
+            end
+        end
+        
+        function result = mulr(obj1, obj2)
+            if isa(obj2, 'RationalNumber')
+                new_numerator = obj1.numerator * obj2.numerator;
+                new_denominator = obj1.denominator * obj2.denominator;
+                result = RationalNumber(new_numerator, new_denominator);
+                result.check()
+            else
+                error('Unsupported operand type(s) for *');
+            end
+        end
+        
+        function result = divr(obj1, obj2)
+            if isa(obj2, 'RationalNumber')
+                if obj2.numerator == 0
+                    error('Division by zero');
+                end
+                new_numerator = obj1.numerator * obj2.denominator;
+                new_denominator = obj1.denominator * obj2.numerator;
+                result = RationalNumber(new_numerator, new_denominator);
+                result.check()
+            else
+                error('Unsupported operand type(s) for /');
+            end
+        end
+        
+        function disp(obj)
+            fprintf('%d/%d\n', obj.numerator, obj.denominator);
+        end
+
+        function result =  powerr(obj,n)
+            new_numerator = obj.numerator^n;
+            new_denominator = obj.denominator^n;
+            result = RationalNumber(new_numerator,new_denominator);
+            result.check()
+        end
+        function result = divnr(obj,n)
+            new_numerator = obj.numerator;
+            new_denominator = obj.denominator*n;
+            result = RationalNumber(new_numerator,new_denominator);
+            result.check()
+        end
+        function result = mulnr(obj,n)
+            new_numerator = obj.numerator*n;
+            new_denominator = obj.denominator;
+            result = RationalNumber(new_numerator,new_denominator);
+            result.check()
+        end
+        function result = addnr(obj,n)
+            new_numerator = obj.numerator + n*obj.denominator;
+            new_denominator = obj.denominator;
+            result = RationalNumber(new_numerator,new_denominator);
+            result.check()
+        end
+    end
+end
