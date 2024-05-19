@@ -87,7 +87,7 @@ while sc.SimulationTime ~= sc.StopTime
                     network_managers(nm_in).group_change_info(2) = 1;
                     % mark that leo is not part of any group currently
                     leo_satellites(leo_in).network_manager = -1;
-                else
+                elseif group_matrix(nm_in,leo_in) > 0
                     % Satellite is still in range
                     group_matrix(nm_in,leo_in) = curr_duration;
                 end

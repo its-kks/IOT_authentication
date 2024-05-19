@@ -50,7 +50,6 @@ pyrun(py_code)
 
 encrypt_decrypt = tic;
 
-disp(message);
 
 fun_call = strcat("encrypt_decrypt(b'",message,"')");
 pyrun(fun_call);

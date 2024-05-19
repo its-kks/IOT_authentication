@@ -15,15 +15,15 @@ function [hashed_value] = Hash_bits_to_Z(varargin)
 
 pyrun(python_code);
 
-func_call = "ans = H(";
+func_call = "ans = H('";
 for k = 1:nargin
     func_call = func_call + varargin{k};
     if k ~= nargin
-        func_call = func_call + ",";
+        func_call = func_call + "','";
     end
 end
 
-func_call = func_call + ")";
+func_call = func_call + "')";
 
 hashed_value = string(pyrun(func_call,"ans"));
 

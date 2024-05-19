@@ -5,11 +5,10 @@ clc,clearvars
 start_sim = tic;
 
 startTime = datetime(2024,2,18,11,23,0);
-stopTime = startTime + minutes(15);
+stopTime = startTime + minutes(30);
 sampleTime = 60; %sample time is in seconds
 
 sc = satelliteScenario(startTime,stopTime,sampleTime);
-
 
 %{ 
 preventing autosimulate so that we can control the simulation and also
@@ -36,7 +35,7 @@ load('ground_station_data.mat')
 % load IOT data in IOT_data variable
 load('IOT_data.mat')
 
-time_object = Times(500);
+time_object = Times(10);
 
 leo_satellites = generate_leo(sc,leo_data,time_object);
 
@@ -44,12 +43,13 @@ geo_satellites = generate_geo(sc,geo_data);
 
 % NMC cities:
 city = ["Tokyo"; "New York"; "Lisbon";"Mexico City"; "Mumbai";
-    "Rio de Janeiro";"Jakarta"; "Moscow";"Johannesburg";"Sydney"];
+    "Rio de Janeiro";"Jakarta"; "Moscow";"Johannesburg";"Sydney";"Dhaka";
+    "Cairo";"Hong Kong";"Bogotá"];
 
 network_managers = generate_network_manager(sc,network_manager_data, ...
     geo_satellites,time_object,city,ground_station_data);
 
-IOT_devices = generate_IOT(sc,IOT_data,network_manager_data,network_managers);
+IOT_devices = generate_IOT(sc,IOT_data,network_manager_data,network_managers,time_object);
 
 % link network managers to leo satellites
 access_list = cell(size(leo_satellites,1),size(network_managers,1));
@@ -69,6 +69,7 @@ detect_change_nm_access = zeros(size(leo_satellites,1),size(network_managers,1))
 % 0 -> satellite not a part
 % >1 -> satellite is a part and is added recently
 % -1 -> satellite is deleted recently
+
 group_matrix = zeros(size(network_managers,1),size(leo_satellites,1));
 
 
@@ -93,7 +94,7 @@ while sc.SimulationTime ~= sc.StopTime
                     network_managers(nm_in).group_change_info(2) = 1;
                     % mark that leo is not part of any group currently
                     leo_satellites(leo_in).network_manager = -1;
-                else
+                elseif group_matrix(nm_in,leo_in) > 0
                     % Satellite is still in range
                     group_matrix(nm_in,leo_in) = curr_duration;
                 end
@@ -162,7 +163,7 @@ while sc.SimulationTime ~= sc.StopTime
                 end
             end
             % generate new group key for all the satellites
-            if satellite_count > 1
+            if satellite_count > 0
                 network_managers(i).generate_key(group_matrix(i,:),leo_satellites,geo_satellites);
             end
 
@@ -185,16 +186,18 @@ while sc.SimulationTime ~= sc.StopTime
             end
 
             % generate key with all the satellites left with it
-            if satellite_count > 1
+            if satellite_count > 0
                 network_managers(i).generate_key(group_matrix(i,:),leo_satellites,geo_satellites);
             end
            
         end
-
+    end
+    for i=1:size(network_managers,1)
         % handling authentication
         if network_managers(i).IOT_controller > 0
             IOT_devices(network_managers(i).IOT_controller).handle_authentication(time_min, ...
-                network_managers(i),group_matrix(i,:),leo_satellites,network_managers(i).ground_station);
+                network_managers,group_matrix(i,:),leo_satellites,network_managers(i).ground_station,...
+                geo_satellites,group_matrix(IOT_devices(network_managers(i).IOT_controller).second_nmc,:));
         end
     end
     

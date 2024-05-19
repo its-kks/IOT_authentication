@@ -2,85 +2,110 @@ classdef Times < handle
     %TIME time for processing and transmission
     
     properties
-        ping_nm_to_leo_processing
-        ping_nm_to_leo_transmission
-        data_leo_nm_transmission
-        data_leo_nm_processing
-        data_nm_leo_processing
-        date_nm_leo_transmission
-        ping_ind
-        data_leo_nm_ind
-        data_nm_leo_ind_proc
-        data_nm_leo_ind_trans
-        key_retrieve_time
-        ind_key_ret
+        initial_authentication_transmission
+        initial_authentication_processing
+        intra_authentication_transmission
+        intra_authentication_processing
+        inter_authentication_transmission
+        inter_authentication_processing
+        initial_authentication_processing_ind
+        initial_authentication_transmission_ind
+        intra_authentication_processing_ind
+        intra_authentication_transmission_ind
+        inter_authentication_processing_ind
+        inter_authentication_transmission_ind
+        
     end
     
     methods
         function obj = Times(size)
-            obj.ping_nm_to_leo_processing = zeros(1,size);
-            obj.ping_nm_to_leo_transmission = zeros(1,size);
-            obj.data_leo_nm_transmission = zeros(1,size);
-            obj.data_leo_nm_processing = zeros(1,size);
-            obj.data_nm_leo_processing = zeros(1,size);
-            obj.date_nm_leo_transmission = zeros(1,size);
-            obj.key_retrieve_time = zeros(1,size);
-            obj.ping_ind = 1;
-            obj.data_leo_nm_ind = 1;
-            obj.data_nm_leo_ind_proc = 1;
-            obj.data_nm_leo_ind_trans = 1;
-            obj.ind_key_ret = 1;
+            obj.initial_authentication_transmission = zeros(1,size);
+            obj.initial_authentication_processing = zeros(1,size);
+            obj.intra_authentication_transmission = zeros(1,size);
+            obj.intra_authentication_processing = zeros(1,size);
+            obj.inter_authentication_transmission = zeros(1,size);
+            obj.inter_authentication_processing = zeros(1,size);
+            obj.initial_authentication_processing_ind = 1;
+            obj.initial_authentication_transmission_ind = 1;
+            obj.intra_authentication_processing_ind = 1;
+            obj.intra_authentication_transmission_ind = 1;
+            obj.inter_authentication_processing_ind = 1;
+            obj.inter_authentication_transmission_ind = 1;
         end
         function plot(obj)
-            figure;
+             figure;
+    
+            % Plot initial_authentication_transmission
+            subplot(3, 3, 1);
+            scatter(1:length(obj.initial_authentication_transmission), obj.initial_authentication_transmission, 'filled');
+            xlim([0, length(obj.initial_authentication_transmission)]);  % Set x-axis limits
+            title('Initial Authentication Transmission');
+            xlabel('Index');
+            ylabel('Second');
             
-            % Plotting the first bar graph
-            subplot(2, 4, 1);
-            plot([1:obj.ping_ind-2], obj.ping_nm_to_leo_processing(2:obj.ping_ind-1));
+            % Plot initial_authentication_processing
+            subplot(3, 3, 4);
+            scatter(1:length(obj.initial_authentication_processing), obj.initial_authentication_processing, 'filled');
+            xlim([0, length(obj.initial_authentication_processing)]);  % Set x-axis limits
+            title('Initial Authentication Processing');
             xlabel('Index');
-            ylabel('TIme');
-            title('Ping NM to LEO Processing');
-        
-            % Plotting the second bar graph
-            subplot(2, 4, 2);
-            plot([1:obj.ping_ind-2], obj.ping_nm_to_leo_transmission(2:obj.ping_ind-1));
-            xlabel('Index');
-            ylabel('TIme');
-            title('Ping NM to LEO Transmission');
-        
-            % Plotting the third bar graph
-            subplot(2, 4, 3);
-            plot([1:obj.data_leo_nm_ind-2], obj.data_leo_nm_processing(2:obj.data_leo_nm_ind-1));
-            xlabel('Index');
-            ylabel('TIme');
-            title('Data LEO NM Processing');
-        
-            % Plotting the fourth bar graph
-            subplot(2, 4, 4);
-            plot([1:obj.data_leo_nm_ind-2], obj.data_leo_nm_transmission(2:obj.data_leo_nm_ind-1));
-            xlabel('Index');
-            ylabel('TIme');
-            title('Data LEO NM Transmission');
-        
-            % Plotting the fifth bar graph
-            subplot(2, 4, 5);
-            plot([1:obj.data_nm_leo_ind_proc-2], obj.data_nm_leo_processing(2:obj.data_nm_leo_ind_proc-1));
-            xlabel('Index');
-            ylabel('TIme');
-            title('Data NM to LEO Processing');
-
-            % Plotting the sixth bar graph
-            subplot(2, 4, 6);
-            plot([1:obj.data_nm_leo_ind_trans-2], obj.date_nm_leo_transmission(2:obj.data_nm_leo_ind_trans-1));
-            xlabel('Index');
-            ylabel('TIme');
-            title('Data NM to LEO Transmission');
+            ylabel('Second');
             
-            subplot(2, 4, 7);
-            plot([1:obj.ind_key_ret-2],obj.key_retrieve_time(2:obj.ind_key_ret-1));
+            % Plot sum of initial_authentication_transmission and initial_authentication_processing
+            subplot(3, 3, 7);
+            scatter(1:length(obj.initial_authentication_transmission), obj.initial_authentication_transmission + obj.initial_authentication_processing, 'filled');
+            xlim([0, length(obj.initial_authentication_transmission)]);  % Set x-axis limits
+            title('Total Initial Authentication');
             xlabel('Index');
-            ylabel('TIme');
-            title('Key retrieval time LEO');
+            ylabel('Second');
+            
+            % Plot intra_authentication_transmission
+            subplot(3, 3, 2);
+            scatter(1:length(obj.intra_authentication_transmission), obj.intra_authentication_transmission, 'filled');
+            xlim([0, length(obj.intra_authentication_transmission)]);  % Set x-axis limits
+            title('Intra Authentication Transmission');
+            xlabel('Index');
+            ylabel('Second');
+            
+            % Plot intra_authentication_processing
+            subplot(3, 3, 5);
+            scatter(1:length(obj.intra_authentication_processing), obj.intra_authentication_processing, 'filled');
+            xlim([0, length(obj.intra_authentication_processing)]);  % Set x-axis limits
+            title('Intra Authentication Processing');
+            xlabel('Index');
+            ylabel('Second');
+            
+            % Plot sum of intra_authentication_transmission and intra_authentication_processing
+            subplot(3, 3, 8);
+            scatter(1:length(obj.intra_authentication_transmission), obj.intra_authentication_transmission + obj.intra_authentication_processing, 'filled');
+            xlim([0, length(obj.intra_authentication_transmission)]);  % Set x-axis limits
+            title('Total Intra Authentication');
+            xlabel('Index');
+            ylabel('Second');
+            
+            % Plot inter_authentication_transmission
+            subplot(3, 3, 3);
+            scatter(1:length(obj.inter_authentication_transmission), obj.inter_authentication_transmission, 'filled');
+            xlim([0, length(obj.inter_authentication_transmission)]);  % Set x-axis limits
+            title('Inter Authentication Transmission');
+            xlabel('Index');
+            ylabel('Second');
+            
+            % Plot inter_authentication_processing
+            subplot(3, 3, 6);
+            scatter(1:length(obj.inter_authentication_processing), obj.inter_authentication_processing, 'filled');
+            xlim([0, length(obj.inter_authentication_processing)]);  % Set x-axis limits
+            title('Inter Authentication Processing');
+            xlabel('Index');
+            ylabel('Second');
+            
+            % Plot sum of inter_authentication_transmission and inter_authentication_processing
+            subplot(3, 3, 9);
+            scatter(1:length(obj.inter_authentication_transmission), obj.inter_authentication_transmission + obj.inter_authentication_processing, 'filled');
+            xlim([0, length(obj.inter_authentication_transmission)]);  % Set x-axis limits
+            title('Total Inter Authentication');
+            xlabel('Index');
+            ylabel('Second');
 
         end
     end

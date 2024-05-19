@@ -10,4 +10,4 @@ def H(*args):
     hash_int = int.from_bytes(hash_bytes, byteorder='big')
     return hash_int % q
 
-print(H(33,33,88))
+print(H("88"))
