@@ -1,3 +1,8 @@
+addpath("generate_objects\")
+addpath("authentication_functions\")
+addpath("generate_data\")
+addpath("miscellaneous_functions\")
+
 clc,clearvars
 
 
@@ -35,7 +40,7 @@ load('ground_station_data.mat')
 % load IOT data in IOT_data variable
 load('IOT_data.mat')
 
-time_object = Times(10);
+time_object = Times(7);
 
 leo_satellites = generate_leo(sc,leo_data,time_object);
 

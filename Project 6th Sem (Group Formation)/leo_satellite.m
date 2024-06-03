@@ -87,12 +87,9 @@ classdef leo_satellite < handle
             
             % total transmission time = Trans + (n-1)Tprocess
             transmission_time_tot = 0;
-            for i=1:14
-                [data_rec,snr,processing_time,transmission_time] = send_data_nm_geo_leo(hash_val_arr(i),network_manager,geo_satellites,obj);
-                if i==1
-                    transmission_time_tot = sym(transmission_time + 13*processing_time);
-                end
-            end
+            [data_rec,snr,processing_time,transmission_time] = send_data_nm_geo_leo(hash_val_arr(1),network_manager,geo_satellites,obj);
+            transmission_time_tot = sym(transmission_time + 13*processing_time);
+            
 
             
             message_to_nm = {transpose(hash_bytes),obj.matlab_sat.ID,random_val,time_stamp};

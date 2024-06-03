@@ -5,4 +5,4 @@ geo_data = [
 ];
 
 
-save('geo_data.mat', 'geo_data');
+save('..\geo_data.mat', 'geo_data');

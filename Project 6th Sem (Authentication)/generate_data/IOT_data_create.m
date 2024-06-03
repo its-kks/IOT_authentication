@@ -9,4 +9,4 @@ IOT_data = [
 ];
 
 
-save('IOT_data.mat', 'IOT_data');
+save('..\IOT_data.mat', 'IOT_data');

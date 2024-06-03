@@ -1,5 +1,5 @@
 function [S_x,S_y] = ECC_add_points(x1,y1,x2,y2)
-% This function generates Public Key using private key X
+% This function adds two points on the curve
 % ECC algorithm used is SECP256R1
 
     python_code = [

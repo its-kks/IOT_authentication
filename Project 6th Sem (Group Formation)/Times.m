@@ -32,57 +32,56 @@ classdef Times < handle
             obj.ind_key_ret = 1;
         end
         function plot(obj)
+            % Plotting the first scatter plot
             figure;
-            
-            % Plotting the first bar graph
-            subplot(2, 4, 1);
-            plot([1:obj.ping_ind-2], obj.ping_nm_to_leo_processing(2:obj.ping_ind-1));
+            scatter([1:obj.ping_ind-1], obj.ping_nm_to_leo_processing(1:obj.ping_ind-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Ping NM to LEO Processing');
         
-            % Plotting the second bar graph
-            subplot(2, 4, 2);
-            plot([1:obj.ping_ind-2], obj.ping_nm_to_leo_transmission(2:obj.ping_ind-1));
+            % Plotting the second scatter plot
+            figure;
+            scatter([1:obj.ping_ind-1], obj.ping_nm_to_leo_transmission(1:obj.ping_ind-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Ping NM to LEO Transmission');
         
-            % Plotting the third bar graph
-            subplot(2, 4, 3);
-            plot([1:obj.data_leo_nm_ind-2], obj.data_leo_nm_processing(2:obj.data_leo_nm_ind-1));
+            % Plotting the third scatter plot
+            figure;
+            scatter([1:obj.data_leo_nm_ind-1], obj.data_leo_nm_processing(1:obj.data_leo_nm_ind-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Data LEO NM Processing');
         
-            % Plotting the fourth bar graph
-            subplot(2, 4, 4);
-            plot([1:obj.data_leo_nm_ind-2], obj.data_leo_nm_transmission(2:obj.data_leo_nm_ind-1));
+            % Plotting the fourth scatter plot
+            figure;
+            scatter([1:obj.data_leo_nm_ind-1], obj.data_leo_nm_transmission(1:obj.data_leo_nm_ind-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Data LEO NM Transmission');
         
-            % Plotting the fifth bar graph
-            subplot(2, 4, 5);
-            plot([1:obj.data_nm_leo_ind_proc-2], obj.data_nm_leo_processing(2:obj.data_nm_leo_ind_proc-1));
+            % Plotting the fifth scatter plot
+            figure;
+            scatter([1:obj.data_nm_leo_ind_proc-1], obj.data_nm_leo_processing(1:obj.data_nm_leo_ind_proc-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Data NM to LEO Processing');
-
-            % Plotting the sixth bar graph
-            subplot(2, 4, 6);
-            plot([1:obj.data_nm_leo_ind_trans-2], obj.date_nm_leo_transmission(2:obj.data_nm_leo_ind_trans-1));
+        
+            % Plotting the sixth scatter plot
+            figure;
+            scatter([1:obj.data_nm_leo_ind_trans-1], obj.date_nm_leo_transmission(1:obj.data_nm_leo_ind_trans-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Data NM to LEO Transmission');
             
-            subplot(2, 4, 7);
-            plot([1:obj.ind_key_ret-2],obj.key_retrieve_time(2:obj.ind_key_ret-1));
+            % Plotting the seventh scatter plot
+            figure;
+            scatter([1:obj.ind_key_ret-1], obj.key_retrieve_time(1:obj.ind_key_ret-1), 'filled');
             xlabel('Index');
-            ylabel('TIme');
+            ylabel('Time');
             title('Key retrieval time LEO');
-
         end
+
     end
 end
 

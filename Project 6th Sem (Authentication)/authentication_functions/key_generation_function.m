@@ -1,6 +1,5 @@
 function [x_dash,y_dash] = key_generation_function(x,y)
-% This function generates Public Key using private key X
-% ECC algorithm used is SECP256R1
+% This is the KDF (Key derivation function)
 
     python_code = [
     "import hashlib"

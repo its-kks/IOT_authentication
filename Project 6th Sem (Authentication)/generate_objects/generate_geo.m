@@ -16,6 +16,7 @@ function [geo_satellites] = generate_geo(sc, geo_data)
     % Create satellite object
     current_satellite = satellite(sc, semimajor_axis, eccentricity, ...
         inclination, raan, arg_of_perigee, true_anomaly,"Name",strcat('GEO',num2str(i)));
+    current_satellite.MarkerColor = [1,0,0];
     % Add satellite to list
     geo_satellites = [geo_satellites; current_satellite];
 

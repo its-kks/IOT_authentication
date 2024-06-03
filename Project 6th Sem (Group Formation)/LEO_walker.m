@@ -4,7 +4,7 @@ sampleTime = 60; %sample time is in seconds
 
 sc = satelliteScenario(startTime,stopTime,sampleTime);
 
-sat = walkerDelta(sc,6778000,45,280,10,1);
+sat = walkerDelta(sc,2000000,45,280,10,1);
 
 satelliteScenarioViewer(sc, ShowDetails=false);
 

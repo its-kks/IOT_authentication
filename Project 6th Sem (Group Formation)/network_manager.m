@@ -188,16 +188,28 @@ classdef network_manager < handle
 
 
             % send the coordinates_p to each of the leo involved in group
-            for i=1:size(leo_group_index,1)
-                ind = leo_group_index(i);
-                transmission_time_tot = obj.send_coordinates_p_leo(leo_satellites(ind),coordinates_p_leo,geo_satellites);
-                obj.times.date_nm_leo_transmission(1,obj.times.data_nm_leo_ind_trans) = transmission_time_tot;
-                obj.times.data_nm_leo_ind_trans = obj.times.data_nm_leo_ind_trans + 1;
-            end
+            % we assume that the data is multicasted to all the LEO
+            % satellites at once
+            
+            % since data has to be multicasted we are calculated
+            % transmission time for one of the leo satellite since it will
+            % be nearly same for each leo satellite
+            ind = leo_group_index(1);
+            transmission_time_tot = obj.send_coordinates_p_leo(leo_satellites(ind),coordinates_p_leo,geo_satellites);
+            obj.times.date_nm_leo_transmission(1,obj.times.data_nm_leo_ind_trans) = transmission_time_tot;
+            obj.times.data_nm_leo_ind_trans = obj.times.data_nm_leo_ind_trans + 1;
+            
 
             processing_time_tot = toc(tic_nm);
             obj.times.data_nm_leo_processing(1,obj.times.data_nm_leo_ind_proc) = processing_time_tot;
             obj.times.data_nm_leo_ind_proc = obj.times.data_nm_leo_ind_proc + 1;
+            
+            % initiating group key generation by leo satellites
+            for i=1:size(leo_group_index,1)
+                ind = leo_group_index(i);
+                leo_satellites(ind).form_key(coordinates_p_leo);
+
+            end
 
         end
 
@@ -235,15 +247,10 @@ classdef network_manager < handle
                 hash_val_arr(i+11) = int32(coordinates_p(i,1) + coordinates_p(i,2))-1;
             end
             
-            for i=1:size(hash_val_arr,2)
-                [data_rec,snr,processing_time,transmission_time] = send_data_nm_geo_leo(hash_val_arr(i),obj,geo_satellites,leo_satellite);
-                if i==1
-                    transmission_time_tot = transmission_time + (size(hash_val_arr,2)-1)*processing_time;
-                end
-            end
-
-           
-            leo_satellite.form_key(coordinates_p);
+            [data_rec,snr,processing_time,transmission_time] = send_data_nm_geo_leo(hash_val_arr(1),obj,geo_satellites,leo_satellite);
+            
+            transmission_time_tot = transmission_time + (size(hash_val_arr,2)-1)*processing_time;
+            
 
         end
     end

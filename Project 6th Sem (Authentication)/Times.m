@@ -32,11 +32,10 @@ classdef Times < handle
             obj.inter_authentication_processing_ind = 1;
             obj.inter_authentication_transmission_ind = 1;
         end
+        
         function plot(obj)
-             figure;
-    
             % Plot initial_authentication_transmission
-            subplot(3, 3, 1);
+            figure;
             scatter(1:length(obj.initial_authentication_transmission), obj.initial_authentication_transmission, 'filled');
             xlim([0, length(obj.initial_authentication_transmission)]);  % Set x-axis limits
             title('Initial Authentication Transmission');
@@ -44,7 +43,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot initial_authentication_processing
-            subplot(3, 3, 4);
+            figure;
             scatter(1:length(obj.initial_authentication_processing), obj.initial_authentication_processing, 'filled');
             xlim([0, length(obj.initial_authentication_processing)]);  % Set x-axis limits
             title('Initial Authentication Processing');
@@ -52,7 +51,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot sum of initial_authentication_transmission and initial_authentication_processing
-            subplot(3, 3, 7);
+            figure;
             scatter(1:length(obj.initial_authentication_transmission), obj.initial_authentication_transmission + obj.initial_authentication_processing, 'filled');
             xlim([0, length(obj.initial_authentication_transmission)]);  % Set x-axis limits
             title('Total Initial Authentication');
@@ -60,7 +59,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot intra_authentication_transmission
-            subplot(3, 3, 2);
+            figure;
             scatter(1:length(obj.intra_authentication_transmission), obj.intra_authentication_transmission, 'filled');
             xlim([0, length(obj.intra_authentication_transmission)]);  % Set x-axis limits
             title('Intra Authentication Transmission');
@@ -68,7 +67,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot intra_authentication_processing
-            subplot(3, 3, 5);
+            figure;
             scatter(1:length(obj.intra_authentication_processing), obj.intra_authentication_processing, 'filled');
             xlim([0, length(obj.intra_authentication_processing)]);  % Set x-axis limits
             title('Intra Authentication Processing');
@@ -76,7 +75,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot sum of intra_authentication_transmission and intra_authentication_processing
-            subplot(3, 3, 8);
+            figure;
             scatter(1:length(obj.intra_authentication_transmission), obj.intra_authentication_transmission + obj.intra_authentication_processing, 'filled');
             xlim([0, length(obj.intra_authentication_transmission)]);  % Set x-axis limits
             title('Total Intra Authentication');
@@ -84,7 +83,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot inter_authentication_transmission
-            subplot(3, 3, 3);
+            figure;
             scatter(1:length(obj.inter_authentication_transmission), obj.inter_authentication_transmission, 'filled');
             xlim([0, length(obj.inter_authentication_transmission)]);  % Set x-axis limits
             title('Inter Authentication Transmission');
@@ -92,7 +91,7 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot inter_authentication_processing
-            subplot(3, 3, 6);
+            figure;
             scatter(1:length(obj.inter_authentication_processing), obj.inter_authentication_processing, 'filled');
             xlim([0, length(obj.inter_authentication_processing)]);  % Set x-axis limits
             title('Inter Authentication Processing');
@@ -100,14 +99,12 @@ classdef Times < handle
             ylabel('Second');
             
             % Plot sum of inter_authentication_transmission and inter_authentication_processing
-            subplot(3, 3, 9);
+            figure;
             scatter(1:length(obj.inter_authentication_transmission), obj.inter_authentication_transmission + obj.inter_authentication_processing, 'filled');
             xlim([0, length(obj.inter_authentication_transmission)]);  % Set x-axis limits
             title('Total Inter Authentication');
             xlabel('Index');
             ylabel('Second');
-
         end
     end
 end
-

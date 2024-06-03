@@ -29,7 +29,7 @@ classdef network_manager < handle
             obj.group_key = -1;
             obj.gs.MarkerColor = rgb;
             obj.sc = sc;
-            obj.ground_station = Ground_station(sc,"GS"+num2str(ind),gs_coords(1),gs_coords(2),[1,0,1],times,ind);
+            obj.ground_station = Ground_station(sc,"GS"+num2str(ind),gs_coords(1),gs_coords(2),[1,1,0],times,ind);
             obj.IOT_controller = -1;
             obj.group_count = 0; % maintains a number for each group
 

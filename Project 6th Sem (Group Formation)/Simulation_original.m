@@ -5,7 +5,7 @@ clc,clearvars
 start_sim = tic;
 
 startTime = datetime(2024,2,18,11,23,0);
-stopTime = startTime + hours(0.6);
+stopTime = startTime + minutes(5);
 sampleTime = 60; %sample time is in seconds
 
 sc = satelliteScenario(startTime,stopTime,sampleTime);

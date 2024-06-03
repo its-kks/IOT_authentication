@@ -1,5 +1,6 @@
 function [Pub_x,Pub_y] = ECC_x_dot_P_new(x,varargin)
-% This function generates Public Key using private key X
+% This function generates public key however we can decide the generator
+% point
 % ECC algorithm used is SECP256R1
 
     python_code = [
