@@ -28,7 +28,7 @@ load('geo_data.mat')
 
 load('network_manager_data.mat')
 
-time_object = Times(500);
+time_object = Times(35);
 
 leo_satellites = generate_leo(sc,leo_data,time_object);
 
